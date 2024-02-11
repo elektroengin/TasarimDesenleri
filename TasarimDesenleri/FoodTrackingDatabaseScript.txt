@@ -1,0 +1,1375 @@
+USE [master]
+GO
+/****** Object:  Database [FoodTracking]    Script Date: 7.02.2024 11:46:01 ******/
+CREATE DATABASE [FoodTracking]
+ CONTAINMENT = NONE
+ ON  PRIMARY 
+( NAME = N'FoodTracking', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL16.DEVOPS\MSSQL\DATA\FoodTracking.mdf' , SIZE = 73728KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
+ LOG ON 
+( NAME = N'FoodTracking_log', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL16.DEVOPS\MSSQL\DATA\FoodTracking_log.ldf' , SIZE = 8192KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
+ WITH CATALOG_COLLATION = DATABASE_DEFAULT, LEDGER = OFF
+GO
+ALTER DATABASE [FoodTracking] SET COMPATIBILITY_LEVEL = 160
+GO
+IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
+begin
+EXEC [FoodTracking].[dbo].[sp_fulltext_database] @action = 'enable'
+end
+GO
+ALTER DATABASE [FoodTracking] SET ANSI_NULL_DEFAULT OFF 
+GO
+ALTER DATABASE [FoodTracking] SET ANSI_NULLS OFF 
+GO
+ALTER DATABASE [FoodTracking] SET ANSI_PADDING OFF 
+GO
+ALTER DATABASE [FoodTracking] SET ANSI_WARNINGS OFF 
+GO
+ALTER DATABASE [FoodTracking] SET ARITHABORT OFF 
+GO
+ALTER DATABASE [FoodTracking] SET AUTO_CLOSE OFF 
+GO
+ALTER DATABASE [FoodTracking] SET AUTO_SHRINK OFF 
+GO
+ALTER DATABASE [FoodTracking] SET AUTO_UPDATE_STATISTICS ON 
+GO
+ALTER DATABASE [FoodTracking] SET CURSOR_CLOSE_ON_COMMIT OFF 
+GO
+ALTER DATABASE [FoodTracking] SET CURSOR_DEFAULT  GLOBAL 
+GO
+ALTER DATABASE [FoodTracking] SET CONCAT_NULL_YIELDS_NULL OFF 
+GO
+ALTER DATABASE [FoodTracking] SET NUMERIC_ROUNDABORT OFF 
+GO
+ALTER DATABASE [FoodTracking] SET QUOTED_IDENTIFIER OFF 
+GO
+ALTER DATABASE [FoodTracking] SET RECURSIVE_TRIGGERS OFF 
+GO
+ALTER DATABASE [FoodTracking] SET  DISABLE_BROKER 
+GO
+ALTER DATABASE [FoodTracking] SET AUTO_UPDATE_STATISTICS_ASYNC OFF 
+GO
+ALTER DATABASE [FoodTracking] SET DATE_CORRELATION_OPTIMIZATION OFF 
+GO
+ALTER DATABASE [FoodTracking] SET TRUSTWORTHY OFF 
+GO
+ALTER DATABASE [FoodTracking] SET ALLOW_SNAPSHOT_ISOLATION OFF 
+GO
+ALTER DATABASE [FoodTracking] SET PARAMETERIZATION SIMPLE 
+GO
+ALTER DATABASE [FoodTracking] SET READ_COMMITTED_SNAPSHOT OFF 
+GO
+ALTER DATABASE [FoodTracking] SET HONOR_BROKER_PRIORITY OFF 
+GO
+ALTER DATABASE [FoodTracking] SET RECOVERY SIMPLE 
+GO
+ALTER DATABASE [FoodTracking] SET  MULTI_USER 
+GO
+ALTER DATABASE [FoodTracking] SET PAGE_VERIFY CHECKSUM  
+GO
+ALTER DATABASE [FoodTracking] SET DB_CHAINING OFF 
+GO
+ALTER DATABASE [FoodTracking] SET FILESTREAM( NON_TRANSACTED_ACCESS = OFF ) 
+GO
+ALTER DATABASE [FoodTracking] SET TARGET_RECOVERY_TIME = 60 SECONDS 
+GO
+ALTER DATABASE [FoodTracking] SET DELAYED_DURABILITY = DISABLED 
+GO
+ALTER DATABASE [FoodTracking] SET ACCELERATED_DATABASE_RECOVERY = OFF  
+GO
+ALTER DATABASE [FoodTracking] SET QUERY_STORE = ON
+GO
+ALTER DATABASE [FoodTracking] SET QUERY_STORE (OPERATION_MODE = READ_WRITE, CLEANUP_POLICY = (STALE_QUERY_THRESHOLD_DAYS = 30), DATA_FLUSH_INTERVAL_SECONDS = 900, INTERVAL_LENGTH_MINUTES = 60, MAX_STORAGE_SIZE_MB = 1000, QUERY_CAPTURE_MODE = AUTO, SIZE_BASED_CLEANUP_MODE = AUTO, MAX_PLANS_PER_QUERY = 200, WAIT_STATS_CAPTURE_MODE = ON)
+GO
+USE [FoodTracking]
+GO
+/****** Object:  Table [dbo].[anket]    Script Date: 7.02.2024 11:46:02 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[anket](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[baslik] [varchar](250) NULL,
+	[turu] [int] NULL,
+	[aktif] [int] NULL,
+	[bilgi_oneri_var] [int] NULL,
+	[eklenme_tarihi] [datetime] NULL,
+	[ekleyen_kullanici_id] [int] NULL,
+	[eklenme_zamani] [datetime] NULL,
+ CONSTRAINT [PK_] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[anket_cevap]    Script Date: 7.02.2024 11:46:02 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[anket_cevap](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[katilim_id] [int] NULL,
+	[soru_id] [int] NULL,
+	[secenek_id] [int] NULL,
+	[secenek_metin] [text] NULL,
+ CONSTRAINT [PK_anket] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[anket_katilim]    Script Date: 7.02.2024 11:46:02 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[anket_katilim](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[anket_id] [int] NULL,
+	[kullanici_id] [int] NULL,
+	[zaman] [datetime] NULL,
+	[bilgi_oneri_metni] [text] NULL,
+ CONSTRAINT [PK_anket_cevap] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[anket_secenek]    Script Date: 7.02.2024 11:46:02 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[anket_secenek](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[soru_id] [int] NULL,
+	[puan] [int] NULL,
+	[metin] [text] NULL,
+	[aciklamali] [int] NULL,
+ CONSTRAINT [PK_anket_katilim] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[anket_secenekleri]    Script Date: 7.02.2024 11:46:02 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[anket_secenekleri](
+	[secenek_id] [int] IDENTITY(1,1) NOT NULL,
+	[metin] [varchar](50) NULL,
+	[puan] [int] NULL,
+	[aciklama] [varchar](250) NULL,
+	[anket_soru_id] [int] NULL,
+ CONSTRAINT [PK_anket_secenek] PRIMARY KEY CLUSTERED 
+(
+	[secenek_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[anket_soru]    Script Date: 7.02.2024 11:46:02 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[anket_soru](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[anket_id] [int] NULL,
+	[soru_grup_id] [int] NULL,
+	[grup_baslangici] [int] NULL,
+	[turu] [int] NULL,
+	[opsiyonel] [int] NULL,
+	[bilgi_oneri] [int] NULL,
+	[soru_metni] [text] NULL,
+ CONSTRAINT [PK_anket_secenekleri] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[anket_soru_grup]    Script Date: 7.02.2024 11:46:02 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[anket_soru_grup](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[anket_id] [int] NULL,
+	[baslik] [text] NULL,
+	[aciklama] [text] NULL,
+ CONSTRAINT [PK_anket_soru] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[anket_sorulari]    Script Date: 7.02.2024 11:46:02 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[anket_sorulari](
+	[soru_id] [int] IDENTITY(1,1) NOT NULL,
+	[soru_metni] [varchar](250) NULL,
+	[soru_turu] [int] NULL,
+	[opsiyonel] [int] NULL,
+	[anket_id] [int] NULL,
+ CONSTRAINT [PK_anket_soru_grup] PRIMARY KEY CLUSTERED 
+(
+	[soru_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[banka]    Script Date: 7.02.2024 11:46:02 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[banka](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[banka_adi] [varchar](50) NULL,
+ CONSTRAINT [PK_anket_sorulari] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[banka_islemi]    Script Date: 7.02.2024 11:46:02 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[banka_islemi](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[kasa_id] [int] NOT NULL,
+	[banka_id] [int] NULL,
+	[islem_tipi] [varchar](2) NOT NULL,
+	[odeme] [float] NULL,
+	[para_cekme] [float] NULL,
+	[islem_yapan] [int] NOT NULL,
+	[islem_zamani] [datetime] NOT NULL,
+	[iptal] [int] NULL,
+	[iptal_eden] [int] NULL,
+	[iptal_zamani] [datetime] NULL,
+	[aciklama] [varchar](255) NULL,
+ CONSTRAINT [PK_banka] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[duyuru]    Script Date: 7.02.2024 11:46:02 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[duyuru](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[baslik] [varchar](255) NULL,
+	[detay] [text] NULL,
+	[baslangic_zamani] [datetime] NULL,
+	[bitis_zamani] [datetime] NULL,
+	[aktif] [int] NULL,
+	[eklenme_zamani] [datetime] NULL,
+	[ekleyen_kullanici_id] [int] NULL,
+	[degisiklik_zamani] [datetime] NULL,
+	[degistiren_kullanici_id] [int] NULL,
+ CONSTRAINT [PK_banka_islemi] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[event]    Script Date: 7.02.2024 11:46:02 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[event](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[text] [varchar](50) NULL,
+	[start_date] [datetime] NULL,
+	[end_date] [datetime] NULL,
+ CONSTRAINT [PK_duyuru] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[genel_bilgi]    Script Date: 7.02.2024 11:46:02 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[genel_bilgi](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[firma_adi] [varchar](100) NULL,
+	[adres] [varchar](200) NULL,
+	[telefon1] [varchar](15) NULL,
+	[telefon2] [varchar](15) NULL,
+	[fax] [varchar](15) NULL,
+	[il] [varchar](20) NULL,
+	[ilce] [varchar](20) NULL,
+ CONSTRAINT [PK_event] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[grup]    Script Date: 7.02.2024 11:46:02 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[grup](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[grup_adi] [varchar](50) NULL,
+	[grup_key] [varchar](50) NULL,
+ CONSTRAINT [PK_genel_bilgi] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[grup_yetki]    Script Date: 7.02.2024 11:46:02 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[grup_yetki](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[grup_id] [int] NULL,
+	[yetki_id] [int] NULL,
+ CONSTRAINT [PK_grup] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[hesap_hareketi]    Script Date: 7.02.2024 11:46:02 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[hesap_hareketi](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[kullanici_id] [int] NULL,
+	[lokasyon_id] [int] NULL,
+	[vezne_id] [int] NULL,
+	[kasa_id] [int] NULL,
+	[rezervasyon_id] [int] NULL,
+	[musteri_turu_id] [int] NULL,
+	[islem_tipi] [varchar](2) NULL,
+	[kredi] [float] NULL,
+	[harcama] [float] NULL,
+	[kurum_destek_bedeli] [float] NULL,
+	[islem_zamani] [datetime] NULL,
+	[islem_yapan_kullanici_id] [int] NULL,
+	[makbuz_seri] [varchar](5) NULL,
+	[makbuz_sira] [varchar](15) NULL,
+	[iptal] [int] NULL,
+	[iptal_eden] [int] NULL,
+	[iptal_zamani] [datetime] NULL,
+	[odeme_talimatli] [int] NULL,
+	[burslu] [int] NULL,
+ CONSTRAINT [PK_grup_yetki] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[ihale]    Script Date: 7.02.2024 11:46:02 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[ihale](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[adi] [varchar](250) NOT NULL,
+	[baslangic_tarihi] [datetime] NOT NULL,
+	[bitis_tarihi] [datetime] NOT NULL,
+	[birim_yemek_bedeli] [decimal](15, 2) NOT NULL,
+	[toplam_yemek_sayisi] [int] NOT NULL,
+	[ihale_toplam_bedeli] [decimal](15, 2) NOT NULL,
+ CONSTRAINT [PK_hesap_hareketi] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[kasa]    Script Date: 7.02.2024 11:46:02 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[kasa](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[kasa_grup_id] [int] NULL,
+	[kasa_adi] [varchar](50) NULL,
+ CONSTRAINT [PK_ihale] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[kasa_grup]    Script Date: 7.02.2024 11:46:02 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[kasa_grup](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[kasa_grup_adi] [varchar](50) NULL,
+ CONSTRAINT [PK_kasa] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[kiosk]    Script Date: 7.02.2024 11:46:02 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[kiosk](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[kullanici_adi] [varchar](250) NULL,
+	[adi] [varchar](100) NULL,
+	[sifre] [varchar](50) NULL,
+	[calisma_turu] [int] NULL,
+	[com_portu] [varchar](50) NULL,
+	[aktif] [int] NULL,
+	[lokasyon_id] [int] NULL,
+	[kullaniciadi] [varchar](50) NULL,
+ CONSTRAINT [PK_kasa_grup] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[kullanici]    Script Date: 7.02.2024 11:46:02 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[kullanici](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[adi] [varchar](50) NULL,
+	[soyadi] [varchar](50) NULL,
+	[tckimlikno] [bigint] NULL,
+	[kullanici_adi] [varchar](20) NULL,
+	[sifre] [varchar](20) NULL,
+	[unvani] [varchar](50) NULL,
+	[aktif] [int] NULL,
+	[aktif_musteri_turu_id] [int] NULL,
+	[odeme_talimati] [int] NULL,
+	[sicil_no] [varchar](20) NULL,
+	[dogum_tarihi] [datetime] NULL,
+	[hesap_etkinlestirildi] [int] NULL,
+	[kart_id] [varchar](20) NULL,
+	[email] [varchar](50) NULL,
+	[telefon] [varchar](15) NULL,
+	[vip] [int] NULL,
+	[banka_hesap_no] [varchar](32) NULL,
+ CONSTRAINT [PK_kiosk] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[kullanici_grup]    Script Date: 7.02.2024 11:46:02 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[kullanici_grup](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[kullanici_id] [int] NULL,
+	[grup_id] [int] NULL,
+ CONSTRAINT [PK_kullanici] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[log]    Script Date: 7.02.2024 11:46:02 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[log](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[modul] [varchar](50) NULL,
+	[islem] [varchar](50) NULL,
+	[detay] [text] NULL,
+	[zaman] [datetime] NULL,
+	[kullanici_id] [int] NULL,
+	[ip] [varchar](15) NULL,
+	[table_id] [int] NULL,
+ CONSTRAINT [PK_kullanici_grup] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[lokasyon]    Script Date: 7.02.2024 11:46:02 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[lokasyon](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[adi] [varchar](150) NULL,
+	[adresi] [varchar](255) NULL,
+	[aciklama] [varchar](1000) NULL,
+	[telefon1] [varchar](15) NULL,
+	[rezervasyonsuresi] [int] NULL,
+	[rezervasyon_minimum_dakika] [int] NULL,
+ CONSTRAINT [PK_log] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[malzeme]    Script Date: 7.02.2024 11:46:02 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[malzeme](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[malzeme_adi] [varchar](50) NULL,
+	[birim] [int] NULL,
+	[kalori] [float] NULL,
+ CONSTRAINT [PK_lokasyon] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[menu]    Script Date: 7.02.2024 11:46:02 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[menu](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[menu_adi] [varchar](255) NULL,
+	[ihale_id] [int] NULL,
+ CONSTRAINT [PK_malzeme] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[menu_detay]    Script Date: 7.02.2024 11:46:02 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[menu_detay](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[menu_id] [int] NULL,
+	[yemek_id] [int] NULL,
+ CONSTRAINT [PK_menu] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[mesaj]    Script Date: 7.02.2024 11:46:02 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[mesaj](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[kullanici_id] [int] NULL,
+	[konu] [varchar](250) NULL,
+	[detay] [text] NULL,
+	[zaman] [datetime] NULL,
+	[cevap_verildi] [int] NULL,
+	[cevap_metni] [text] NULL,
+	[cevap_zamani] [datetime] NULL,
+	[cevap_okundu] [int] NULL,
+	[cevaplayan_kullanici_id] [int] NULL,
+ CONSTRAINT [PK_menu_detay] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[musteri_turu]    Script Date: 7.02.2024 11:46:02 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[musteri_turu](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[tur_adi] [varchar](5) NULL,
+	[tur_uzun_adi] [varchar](50) NULL,
+	[misafir_sayisi] [int] NULL,
+	[musteri_turu_grubu_id] [int] NULL,
+	[bakiyesiz_rezervasyon] [int] NULL,
+	[burslu] [int] NULL,
+	[kotadan_rezervasyon] [int] NULL,
+	[kotadan_rezervasyon_yapabilir] [int] NULL,
+ CONSTRAINT [PK_mesaj] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[musteri_turu_grubu]    Script Date: 7.02.2024 11:46:02 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[musteri_turu_grubu](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[grup_adi] [varchar](50) NULL,
+	[odeme_talimati_verebilir] [int] NULL,
+	[toplu_misafir_rezervasyonu_yapabilir] [int] NULL,
+ CONSTRAINT [PK_musteri_turu] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[odeme_listesi]    Script Date: 7.02.2024 11:46:02 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[odeme_listesi](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[kasa_id] [int] NOT NULL,
+	[kullanici_id] [int] NOT NULL,
+	[islem_tipi] [int] NOT NULL,
+	[odeme] [float] NOT NULL,
+	[aciklama] [varchar](200) NULL,
+	[islem_zamani] [datetime] NULL,
+	[iptal] [int] NULL,
+ CONSTRAINT [PK_musteri_turu_grubu] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[ogun]    Script Date: 7.02.2024 11:46:02 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[ogun](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[ogun_adi] [varchar](50) NULL,
+	[baslangic_tarihi] [date] NULL,
+	[bitis_tarihi] [date] NULL,
+	[yemek_baslangic_saati] [varchar](5) NULL,
+	[yemek_bitis_saati] [varchar](5) NULL,
+ CONSTRAINT [PK_odeme_listesi] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[ogun_takvimi]    Script Date: 7.02.2024 11:46:02 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[ogun_takvimi](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[ogun_id] [int] NULL,
+	[lokasyon_id] [int] NULL,
+	[menu_id] [int] NULL,
+	[ogun_baslangic_zamani] [datetime] NOT NULL,
+	[ogun_bitis_zamani] [datetime] NOT NULL,
+	[lokas_id] [varchar](50) NULL,
+ CONSTRAINT [PK_ogun] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[parametre]    Script Date: 7.02.2024 11:46:02 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[parametre](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[adi] [varchar](100) NULL,
+	[deger1] [varchar](100) NULL,
+	[deger2] [varchar](100) NULL,
+	[deger3] [varchar](100) NULL,
+	[aciklama] [varchar](200) NULL,
+ CONSTRAINT [PK_ogun_takvimi] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[rezervasyon]    Script Date: 7.02.2024 11:46:02 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[rezervasyon](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[kullanici_id] [int] NULL,
+	[ogun_takvimi_id] [int] NULL,
+	[lokasyon_id] [int] NULL,
+	[islem_yapan_kullanici] [int] NULL,
+	[islem_zamani] [datetime] NULL,
+	[gelis_zamani] [datetime] NULL,
+	[geldi] [int] NULL,
+	[iptal] [int] NULL,
+	[misafir] [int] NULL,
+	[iptal_eden] [int] NULL,
+	[iptal_zamani] [datetime] NULL,
+	[kotadan] [int] NULL,
+ CONSTRAINT [PK_parametre] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[ucret]    Script Date: 7.02.2024 11:46:02 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[ucret](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[musteri_turu_id] [int] NULL,
+	[ogun_id] [int] NULL,
+	[katilim_payi] [float] NULL,
+	[kurum_destek_bedeli] [float] NULL,
+	[baslangic_tarihi] [date] NULL,
+	[bitis_tarihi] [date] NULL,
+ CONSTRAINT [PK_rezervasyon] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[vezne]    Script Date: 7.02.2024 11:46:02 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[vezne](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[lokasyon_id] [int] NULL,
+	[adi] [varchar](100) NULL,
+	[kasa_id] [int] NULL,
+ CONSTRAINT [PK_ucret] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[vezne_kullanici]    Script Date: 7.02.2024 11:46:02 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[vezne_kullanici](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[kullanici_id] [int] NULL,
+	[vezne_id] [int] NULL,
+	[aktif] [int] NULL,
+ CONSTRAINT [PK_vezne] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[vezne_teslimati]    Script Date: 7.02.2024 11:46:02 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[vezne_teslimati](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[vezne_id] [int] NULL,
+	[kullanici_id] [int] NULL,
+	[teslimat_miktari] [float] NULL,
+	[teslim_alan_kullanici_id] [int] NULL,
+	[zaman] [datetime] NULL,
+	[iptal_eden_kullanici_id] [int] NULL,
+	[iptal_zamani] [int] NULL,
+	[iptal] [int] NULL,
+	[aciklama] [varchar](200) NULL,
+ CONSTRAINT [PK_vezne_kullanici] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[yemek]    Script Date: 7.02.2024 11:46:02 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[yemek](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[adi] [varchar](100) NULL,
+	[aciklama] [varchar](500) NULL,
+	[baslangic_tarihi] [date] NULL,
+	[bitis_tarihi] [date] NULL,
+	[ihale_id] [int] NULL,
+	[imagedata] [image] NULL,
+	[imagemimetype] [varchar](50) NULL,
+ CONSTRAINT [PK_vezne_teslimati] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[yemek_detay]    Script Date: 7.02.2024 11:46:02 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[yemek_detay](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[yemek_id] [int] NULL,
+	[malzeme_id] [int] NULL,
+	[miktar] [float] NULL,
+ CONSTRAINT [PK_yemek] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[yemek_resim]    Script Date: 7.02.2024 11:46:02 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[yemek_resim](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[yemek_id] [int] NULL,
+	[uzantisi] [varchar](10) NULL,
+ CONSTRAINT [PK_yemek_detay] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[yetki]    Script Date: 7.02.2024 11:46:02 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[yetki](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[yetki_adi] [varchar](50) NULL,
+	[yetki_key] [varchar](50) NOT NULL,
+ CONSTRAINT [PK_yemek_resim] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET ANSI_PADDING ON
+GO
+/****** Object:  Index [anket_baslik]    Script Date: 7.02.2024 11:46:02 ******/
+CREATE NONCLUSTERED INDEX [anket_baslik] ON [dbo].[anket]
+(
+	[baslik] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [anket_cevap_katilim_id]    Script Date: 7.02.2024 11:46:02 ******/
+CREATE NONCLUSTERED INDEX [anket_cevap_katilim_id] ON [dbo].[anket_cevap]
+(
+	[katilim_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [anket_cevap_secenek_id]    Script Date: 7.02.2024 11:46:02 ******/
+CREATE NONCLUSTERED INDEX [anket_cevap_secenek_id] ON [dbo].[anket_cevap]
+(
+	[secenek_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [anket_cevap_soru_id]    Script Date: 7.02.2024 11:46:02 ******/
+CREATE NONCLUSTERED INDEX [anket_cevap_soru_id] ON [dbo].[anket_cevap]
+(
+	[soru_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [anket_katilim_anket_id]    Script Date: 7.02.2024 11:46:02 ******/
+CREATE NONCLUSTERED INDEX [anket_katilim_anket_id] ON [dbo].[anket_katilim]
+(
+	[anket_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [anket_katilim_kullanici_id]    Script Date: 7.02.2024 11:46:02 ******/
+CREATE NONCLUSTERED INDEX [anket_katilim_kullanici_id] ON [dbo].[anket_katilim]
+(
+	[kullanici_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [anket_katilim_zaman]    Script Date: 7.02.2024 11:46:02 ******/
+CREATE NONCLUSTERED INDEX [anket_katilim_zaman] ON [dbo].[anket_katilim]
+(
+	[zaman] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [anket_secenek_soru_id]    Script Date: 7.02.2024 11:46:02 ******/
+CREATE NONCLUSTERED INDEX [anket_secenek_soru_id] ON [dbo].[anket_secenek]
+(
+	[soru_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [anket_soru_anket_id]    Script Date: 7.02.2024 11:46:02 ******/
+CREATE NONCLUSTERED INDEX [anket_soru_anket_id] ON [dbo].[anket_soru]
+(
+	[anket_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [anket_soru_soru_grup_id]    Script Date: 7.02.2024 11:46:02 ******/
+CREATE NONCLUSTERED INDEX [anket_soru_soru_grup_id] ON [dbo].[anket_soru]
+(
+	[soru_grup_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [fk_anket_id]    Script Date: 7.02.2024 11:46:02 ******/
+CREATE NONCLUSTERED INDEX [fk_anket_id] ON [dbo].[anket_sorulari]
+(
+	[anket_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+SET ANSI_PADDING ON
+GO
+/****** Object:  Index [banka_banka_adi]    Script Date: 7.02.2024 11:46:02 ******/
+CREATE NONCLUSTERED INDEX [banka_banka_adi] ON [dbo].[banka]
+(
+	[banka_adi] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [banka_islemi_banka_id]    Script Date: 7.02.2024 11:46:02 ******/
+CREATE NONCLUSTERED INDEX [banka_islemi_banka_id] ON [dbo].[banka_islemi]
+(
+	[banka_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [banka_islemi_islem_yapan]    Script Date: 7.02.2024 11:46:02 ******/
+CREATE NONCLUSTERED INDEX [banka_islemi_islem_yapan] ON [dbo].[banka_islemi]
+(
+	[islem_yapan] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [banka_islemi_islem_zamani]    Script Date: 7.02.2024 11:46:02 ******/
+CREATE NONCLUSTERED INDEX [banka_islemi_islem_zamani] ON [dbo].[banka_islemi]
+(
+	[islem_zamani] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [banka_islemi_kasa_id]    Script Date: 7.02.2024 11:46:02 ******/
+CREATE NONCLUSTERED INDEX [banka_islemi_kasa_id] ON [dbo].[banka_islemi]
+(
+	[kasa_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [banka_odeme_fk_iptal_eden]    Script Date: 7.02.2024 11:46:02 ******/
+CREATE NONCLUSTERED INDEX [banka_odeme_fk_iptal_eden] ON [dbo].[banka_islemi]
+(
+	[iptal_eden] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [duyuru_baslangic_zamani]    Script Date: 7.02.2024 11:46:02 ******/
+CREATE NONCLUSTERED INDEX [duyuru_baslangic_zamani] ON [dbo].[duyuru]
+(
+	[baslangic_zamani] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [duyuru_bitis_zamani]    Script Date: 7.02.2024 11:46:02 ******/
+CREATE NONCLUSTERED INDEX [duyuru_bitis_zamani] ON [dbo].[duyuru]
+(
+	[bitis_zamani] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [fk_duyuru_kullanici1]    Script Date: 7.02.2024 11:46:02 ******/
+CREATE NONCLUSTERED INDEX [fk_duyuru_kullanici1] ON [dbo].[duyuru]
+(
+	[degistiren_kullanici_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+SET ANSI_PADDING ON
+GO
+/****** Object:  Index [grup_grup_k_1]    Script Date: 7.02.2024 11:46:02 ******/
+CREATE UNIQUE NONCLUSTERED INDEX [grup_grup_k_1] ON [dbo].[grup]
+(
+	[grup_key] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+SET ANSI_PADDING ON
+GO
+/****** Object:  Index [grup_grup_key]    Script Date: 7.02.2024 11:46:02 ******/
+CREATE NONCLUSTERED INDEX [grup_grup_key] ON [dbo].[grup]
+(
+	[grup_key] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [grup_yetki_grup_id]    Script Date: 7.02.2024 11:46:02 ******/
+CREATE NONCLUSTERED INDEX [grup_yetki_grup_id] ON [dbo].[grup_yetki]
+(
+	[grup_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [grup_yetki_yetki_id]    Script Date: 7.02.2024 11:46:02 ******/
+CREATE NONCLUSTERED INDEX [grup_yetki_yetki_id] ON [dbo].[grup_yetki]
+(
+	[yetki_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [hesap_hareketi_fk10]    Script Date: 7.02.2024 11:46:02 ******/
+CREATE NONCLUSTERED INDEX [hesap_hareketi_fk10] ON [dbo].[hesap_hareketi]
+(
+	[vezne_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [hesap_hareketi_fk8]    Script Date: 7.02.2024 11:46:02 ******/
+CREATE NONCLUSTERED INDEX [hesap_hareketi_fk8] ON [dbo].[hesap_hareketi]
+(
+	[iptal_eden] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [hesap_hareketi_fk9]    Script Date: 7.02.2024 11:46:02 ******/
+CREATE NONCLUSTERED INDEX [hesap_hareketi_fk9] ON [dbo].[hesap_hareketi]
+(
+	[lokasyon_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+SET ANSI_PADDING ON
+GO
+/****** Object:  Index [hesap_hareketi_islem_tipi]    Script Date: 7.02.2024 11:46:02 ******/
+CREATE NONCLUSTERED INDEX [hesap_hareketi_islem_tipi] ON [dbo].[hesap_hareketi]
+(
+	[islem_tipi] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [hesap_hareketi_islem_yapan_kullanici_id]    Script Date: 7.02.2024 11:46:02 ******/
+CREATE NONCLUSTERED INDEX [hesap_hareketi_islem_yapan_kullanici_id] ON [dbo].[hesap_hareketi]
+(
+	[islem_yapan_kullanici_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [hesap_hareketi_islem_zamani]    Script Date: 7.02.2024 11:46:02 ******/
+CREATE NONCLUSTERED INDEX [hesap_hareketi_islem_zamani] ON [dbo].[hesap_hareketi]
+(
+	[islem_zamani] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [hesap_hareketi_kasa_id]    Script Date: 7.02.2024 11:46:02 ******/
+CREATE NONCLUSTERED INDEX [hesap_hareketi_kasa_id] ON [dbo].[hesap_hareketi]
+(
+	[kasa_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [hesap_hareketi_kullanici_id]    Script Date: 7.02.2024 11:46:02 ******/
+CREATE NONCLUSTERED INDEX [hesap_hareketi_kullanici_id] ON [dbo].[hesap_hareketi]
+(
+	[kullanici_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [hesap_hareketi_musteri_turu_id]    Script Date: 7.02.2024 11:46:02 ******/
+CREATE NONCLUSTERED INDEX [hesap_hareketi_musteri_turu_id] ON [dbo].[hesap_hareketi]
+(
+	[musteri_turu_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [hesap_hareketi_rezervasyon_id]    Script Date: 7.02.2024 11:46:02 ******/
+CREATE NONCLUSTERED INDEX [hesap_hareketi_rezervasyon_id] ON [dbo].[hesap_hareketi]
+(
+	[rezervasyon_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [kasa_kasa_grup_id]    Script Date: 7.02.2024 11:46:02 ******/
+CREATE NONCLUSTERED INDEX [kasa_kasa_grup_id] ON [dbo].[kasa]
+(
+	[kasa_grup_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [kiosk_lokasyon_id]    Script Date: 7.02.2024 11:46:02 ******/
+CREATE NONCLUSTERED INDEX [kiosk_lokasyon_id] ON [dbo].[kiosk]
+(
+	[lokasyon_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+SET ANSI_PADDING ON
+GO
+/****** Object:  Index [kullanici_adi]    Script Date: 7.02.2024 11:46:02 ******/
+CREATE NONCLUSTERED INDEX [kullanici_adi] ON [dbo].[kullanici]
+(
+	[adi] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [kullanici_fk]    Script Date: 7.02.2024 11:46:02 ******/
+CREATE NONCLUSTERED INDEX [kullanici_fk] ON [dbo].[kullanici]
+(
+	[aktif_musteri_turu_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+SET ANSI_PADDING ON
+GO
+/****** Object:  Index [kullanici_kullanici_adi]    Script Date: 7.02.2024 11:46:02 ******/
+CREATE NONCLUSTERED INDEX [kullanici_kullanici_adi] ON [dbo].[kullanici]
+(
+	[kullanici_adi] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+SET ANSI_PADDING ON
+GO
+/****** Object:  Index [kullanici_soyadi]    Script Date: 7.02.2024 11:46:02 ******/
+CREATE NONCLUSTERED INDEX [kullanici_soyadi] ON [dbo].[kullanici]
+(
+	[soyadi] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [kullanici_grup_grup_id]    Script Date: 7.02.2024 11:46:02 ******/
+CREATE NONCLUSTERED INDEX [kullanici_grup_grup_id] ON [dbo].[kullanici_grup]
+(
+	[grup_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [kullanici_grup_kullanici_id]    Script Date: 7.02.2024 11:46:02 ******/
+CREATE NONCLUSTERED INDEX [kullanici_grup_kullanici_id] ON [dbo].[kullanici_grup]
+(
+	[kullanici_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [kullanici_grup_kullanici_idgrup_id]    Script Date: 7.02.2024 11:46:02 ******/
+CREATE UNIQUE NONCLUSTERED INDEX [kullanici_grup_kullanici_idgrup_id] ON [dbo].[kullanici_grup]
+(
+	[kullanici_id] ASC,
+	[grup_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [menu_ihale_id]    Script Date: 7.02.2024 11:46:02 ******/
+CREATE NONCLUSTERED INDEX [menu_ihale_id] ON [dbo].[menu]
+(
+	[ihale_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [menu_detay_menu_id]    Script Date: 7.02.2024 11:46:02 ******/
+CREATE NONCLUSTERED INDEX [menu_detay_menu_id] ON [dbo].[menu_detay]
+(
+	[menu_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [menu_detay_yemek_id]    Script Date: 7.02.2024 11:46:02 ******/
+CREATE NONCLUSTERED INDEX [menu_detay_yemek_id] ON [dbo].[menu_detay]
+(
+	[yemek_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [mesaj_kullanici_id]    Script Date: 7.02.2024 11:46:02 ******/
+CREATE NONCLUSTERED INDEX [mesaj_kullanici_id] ON [dbo].[mesaj]
+(
+	[kullanici_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [musteri_turu_fk]    Script Date: 7.02.2024 11:46:02 ******/
+CREATE NONCLUSTERED INDEX [musteri_turu_fk] ON [dbo].[musteri_turu]
+(
+	[musteri_turu_grubu_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [ogun_takvimi_fk2]    Script Date: 7.02.2024 11:46:02 ******/
+CREATE NONCLUSTERED INDEX [ogun_takvimi_fk2] ON [dbo].[ogun_takvimi]
+(
+	[lokasyon_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [ogun_takvimi_fk3]    Script Date: 7.02.2024 11:46:02 ******/
+CREATE NONCLUSTERED INDEX [ogun_takvimi_fk3] ON [dbo].[ogun_takvimi]
+(
+	[menu_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [ogun_takvimi_ogun_baslangic_zamani]    Script Date: 7.02.2024 11:46:02 ******/
+CREATE NONCLUSTERED INDEX [ogun_takvimi_ogun_baslangic_zamani] ON [dbo].[ogun_takvimi]
+(
+	[ogun_baslangic_zamani] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [ogun_takvimi_ogun_baslangic_zamaniogun_bitis_zamani]    Script Date: 7.02.2024 11:46:02 ******/
+CREATE NONCLUSTERED INDEX [ogun_takvimi_ogun_baslangic_zamaniogun_bitis_zamani] ON [dbo].[ogun_takvimi]
+(
+	[ogun_baslangic_zamani] ASC,
+	[ogun_bitis_zamani] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [ogun_takvimi_ogun_bitis_zamani]    Script Date: 7.02.2024 11:46:02 ******/
+CREATE NONCLUSTERED INDEX [ogun_takvimi_ogun_bitis_zamani] ON [dbo].[ogun_takvimi]
+(
+	[ogun_bitis_zamani] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [ogun_takvimi_ogun_id]    Script Date: 7.02.2024 11:46:02 ******/
+CREATE NONCLUSTERED INDEX [ogun_takvimi_ogun_id] ON [dbo].[ogun_takvimi]
+(
+	[ogun_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+SET ANSI_PADDING ON
+GO
+/****** Object:  Index [parametre_adi]    Script Date: 7.02.2024 11:46:02 ******/
+CREATE NONCLUSTERED INDEX [parametre_adi] ON [dbo].[parametre]
+(
+	[adi] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [rezervasyon_kullanici_id]    Script Date: 7.02.2024 11:46:02 ******/
+CREATE NONCLUSTERED INDEX [rezervasyon_kullanici_id] ON [dbo].[rezervasyon]
+(
+	[kullanici_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [rezervasyon_kullanici_idogun_takvimi_id]    Script Date: 7.02.2024 11:46:02 ******/
+CREATE NONCLUSTERED INDEX [rezervasyon_kullanici_idogun_takvimi_id] ON [dbo].[rezervasyon]
+(
+	[kullanici_id] ASC,
+	[ogun_takvimi_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [rezervasyon_ogun_takvimi_id]    Script Date: 7.02.2024 11:46:02 ******/
+CREATE NONCLUSTERED INDEX [rezervasyon_ogun_takvimi_id] ON [dbo].[rezervasyon]
+(
+	[ogun_takvimi_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [ucret_fk2]    Script Date: 7.02.2024 11:46:02 ******/
+CREATE NONCLUSTERED INDEX [ucret_fk2] ON [dbo].[ucret]
+(
+	[ogun_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [ucret_musteri_turu_id]    Script Date: 7.02.2024 11:46:02 ******/
+CREATE NONCLUSTERED INDEX [ucret_musteri_turu_id] ON [dbo].[ucret]
+(
+	[musteri_turu_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [ucret_musteri_turu_idbaslangic_tarihibitis_tarihiogun_id]    Script Date: 7.02.2024 11:46:02 ******/
+CREATE NONCLUSTERED INDEX [ucret_musteri_turu_idbaslangic_tarihibitis_tarihiogun_id] ON [dbo].[ucret]
+(
+	[musteri_turu_id] ASC,
+	[baslangic_tarihi] ASC,
+	[bitis_tarihi] ASC,
+	[ogun_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [vezne_kasa_id]    Script Date: 7.02.2024 11:46:02 ******/
+CREATE NONCLUSTERED INDEX [vezne_kasa_id] ON [dbo].[vezne]
+(
+	[kasa_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [vezne_lokasyon_fk]    Script Date: 7.02.2024 11:46:02 ******/
+CREATE NONCLUSTERED INDEX [vezne_lokasyon_fk] ON [dbo].[vezne]
+(
+	[lokasyon_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [vezne_kullanici_kullanici_id]    Script Date: 7.02.2024 11:46:02 ******/
+CREATE NONCLUSTERED INDEX [vezne_kullanici_kullanici_id] ON [dbo].[vezne_kullanici]
+(
+	[kullanici_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [vezne_kullanici_vezne_id]    Script Date: 7.02.2024 11:46:02 ******/
+CREATE NONCLUSTERED INDEX [vezne_kullanici_vezne_id] ON [dbo].[vezne_kullanici]
+(
+	[vezne_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [yemek_ihale_id]    Script Date: 7.02.2024 11:46:02 ******/
+CREATE NONCLUSTERED INDEX [yemek_ihale_id] ON [dbo].[yemek]
+(
+	[ihale_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [yemek_detay_malzeme_id]    Script Date: 7.02.2024 11:46:02 ******/
+CREATE NONCLUSTERED INDEX [yemek_detay_malzeme_id] ON [dbo].[yemek_detay]
+(
+	[malzeme_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [yemek_detay_yemek_id]    Script Date: 7.02.2024 11:46:02 ******/
+CREATE NONCLUSTERED INDEX [yemek_detay_yemek_id] ON [dbo].[yemek_detay]
+(
+	[yemek_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [yemek_resim_yemek_id]    Script Date: 7.02.2024 11:46:02 ******/
+CREATE NONCLUSTERED INDEX [yemek_resim_yemek_id] ON [dbo].[yemek_resim]
+(
+	[yemek_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+SET ANSI_PADDING ON
+GO
+/****** Object:  Index [yetki_yetki_key]    Script Date: 7.02.2024 11:46:02 ******/
+CREATE NONCLUSTERED INDEX [yetki_yetki_key] ON [dbo].[yetki]
+(
+	[yetki_key] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+ALTER TABLE [dbo].[anket] ADD  DEFAULT ((0)) FOR [aktif]
+GO
+ALTER TABLE [dbo].[hesap_hareketi] ADD  DEFAULT ((0)) FOR [iptal]
+GO
+ALTER TABLE [dbo].[hesap_hareketi] ADD  DEFAULT ((0)) FOR [odeme_talimatli]
+GO
+ALTER TABLE [dbo].[hesap_hareketi] ADD  DEFAULT ((0)) FOR [burslu]
+GO
+ALTER TABLE [dbo].[kullanici] ADD  DEFAULT ((0)) FOR [aktif]
+GO
+ALTER TABLE [dbo].[kullanici] ADD  DEFAULT ((1)) FOR [aktif_musteri_turu_id]
+GO
+ALTER TABLE [dbo].[kullanici] ADD  DEFAULT ((0)) FOR [odeme_talimati]
+GO
+ALTER TABLE [dbo].[malzeme] ADD  DEFAULT ((0)) FOR [kalori]
+GO
+ALTER TABLE [dbo].[mesaj] ADD  DEFAULT ((0)) FOR [kullanici_id]
+GO
+ALTER TABLE [dbo].[musteri_turu] ADD  DEFAULT ((0)) FOR [misafir_sayisi]
+GO
+ALTER TABLE [dbo].[musteri_turu] ADD  DEFAULT ((0)) FOR [bakiyesiz_rezervasyon]
+GO
+ALTER TABLE [dbo].[musteri_turu] ADD  DEFAULT ((0)) FOR [burslu]
+GO
+ALTER TABLE [dbo].[musteri_turu] ADD  DEFAULT ((0)) FOR [kotadan_rezervasyon]
+GO
+ALTER TABLE [dbo].[musteri_turu_grubu] ADD  DEFAULT ((0)) FOR [odeme_talimati_verebilir]
+GO
+ALTER TABLE [dbo].[musteri_turu_grubu] ADD  DEFAULT ((0)) FOR [toplu_misafir_rezervasyonu_yapabilir]
+GO
+ALTER TABLE [dbo].[odeme_listesi] ADD  DEFAULT ((0)) FOR [iptal]
+GO
+ALTER TABLE [dbo].[rezervasyon] ADD  DEFAULT ((0)) FOR [geldi]
+GO
+ALTER TABLE [dbo].[rezervasyon] ADD  DEFAULT ((0)) FOR [iptal]
+GO
+ALTER TABLE [dbo].[rezervasyon] ADD  DEFAULT ((0)) FOR [misafir]
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'1: Grup baslagicindaki soru' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'anket_soru', @level2type=N'COLUMN',@level2name=N'grup_baslangici'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'1:radio
+2:check' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'anket_soru', @level2type=N'COLUMN',@level2name=N'turu'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Katilim payini içerir' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'hesap_hareketi', @level2type=N'COLUMN',@level2name=N'harcama'
+GO
+USE [master]
+GO
+ALTER DATABASE [FoodTracking] SET  READ_WRITE 
+GO
