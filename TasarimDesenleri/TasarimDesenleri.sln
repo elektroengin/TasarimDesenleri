@@ -41,6 +41,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuilderPatternV3", "Builder
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuilderPatternV4", "BuilderPatternV4\BuilderPatternV4.csproj", "{1DF7856D-3EF8-4C3D-A212-B21CEA58D52B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Singleton", "Singleton", "{A20FE371-9D60-4F70-B347-CD372F911831}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
