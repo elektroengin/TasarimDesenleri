@@ -1,4 +1,6 @@
 ﻿S - Single Responsibility (Tek Sorumluluk)
+https://www.youtube.com/watch?v=C6Pk-tfBRX0
+https://www.youtube.com/@MilanJovanovicTech
 O - Open Closed (Açık / Kapalı) 
 L - Liskov Subsitition (Yerine Geçme)
 I - Interface Segregation (Arayüz Ayrımı)
