@@ -70,9 +70,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4.InterfaceSegregation", "4
 		C:\Users\engin efe\Desktop\Arayüz-Ayrım-PrensibiInterface-Segregation-Principle-ISP-2.jpg = C:\Users\engin efe\Desktop\Arayüz-Ayrım-PrensibiInterface-Segregation-Principle-ISP-2.jpg
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LSV1Hatali", "LSV1Hatali\LSV1Hatali.csproj", "{7B77D175-3B27-4437-AE94-1C5FBFE30E1F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LSV1Hatali", "LSV1Hatali\LSV1Hatali.csproj", "{7B77D175-3B27-4437-AE94-1C5FBFE30E1F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ISPV2", "ISPV2\ISPV2.csproj", "{ED12B038-FCE7-4C08-977C-FDAB1D296637}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ISPV2", "ISPV2\ISPV2.csproj", "{ED12B038-FCE7-4C08-977C-FDAB1D296637}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DependencyInversion", "5.DependencyInversion\DependencyInversion.csproj", "{E746DB9E-C904-4990-8DD7-1B3C5F1F6EE6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5.DependecyInversion", "5.DependecyInversion", "{DF6B83FB-5E9F-46BD-BA5D-DA87BE8FB79C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "6.InversionOfControl", "6.InversionOfControl", "{989E6E9B-D9AB-4602-BEFA-A0C3881D76F3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IoC", "IoC\IoC.csproj", "{8F9572B9-172A-4AAB-9498-E304062F844C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -168,6 +176,14 @@ Global
 		{ED12B038-FCE7-4C08-977C-FDAB1D296637}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ED12B038-FCE7-4C08-977C-FDAB1D296637}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ED12B038-FCE7-4C08-977C-FDAB1D296637}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E746DB9E-C904-4990-8DD7-1B3C5F1F6EE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E746DB9E-C904-4990-8DD7-1B3C5F1F6EE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E746DB9E-C904-4990-8DD7-1B3C5F1F6EE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E746DB9E-C904-4990-8DD7-1B3C5F1F6EE6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F9572B9-172A-4AAB-9498-E304062F844C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F9572B9-172A-4AAB-9498-E304062F844C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F9572B9-172A-4AAB-9498-E304062F844C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F9572B9-172A-4AAB-9498-E304062F844C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -193,6 +209,8 @@ Global
 		{2770FDFA-A347-4148-8810-FE201389B65B} = {13FFFD98-BEBF-49D0-A737-B587A099BCCC}
 		{7B77D175-3B27-4437-AE94-1C5FBFE30E1F} = {40EFF400-1BA2-4486-9665-827438A1A446}
 		{ED12B038-FCE7-4C08-977C-FDAB1D296637} = {40EFF400-1BA2-4486-9665-827438A1A446}
+		{E746DB9E-C904-4990-8DD7-1B3C5F1F6EE6} = {DF6B83FB-5E9F-46BD-BA5D-DA87BE8FB79C}
+		{8F9572B9-172A-4AAB-9498-E304062F844C} = {989E6E9B-D9AB-4602-BEFA-A0C3881D76F3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C925C8A7-E66E-4426-B880-96796D6FA6ED}
