@@ -74,13 +74,18 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LSV1Hatali", "LSV1Hatali\LS
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ISPV2", "ISPV2\ISPV2.csproj", "{ED12B038-FCE7-4C08-977C-FDAB1D296637}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DependencyInversion", "5.DependencyInversion\DependencyInversion.csproj", "{E746DB9E-C904-4990-8DD7-1B3C5F1F6EE6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DependencyInversion", "5.DependencyInversion\DependencyInversion.csproj", "{E746DB9E-C904-4990-8DD7-1B3C5F1F6EE6}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5.DependecyInversion", "5.DependecyInversion", "{DF6B83FB-5E9F-46BD-BA5D-DA87BE8FB79C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "6.InversionOfControl", "6.InversionOfControl", "{989E6E9B-D9AB-4602-BEFA-A0C3881D76F3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IoC", "IoC\IoC.csproj", "{8F9572B9-172A-4AAB-9498-E304062F844C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IoC", "IoC\IoC.csproj", "{8F9572B9-172A-4AAB-9498-E304062F844C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Document", "Document", "{A84DB9BF-EB1B-4999-B757-A3FBC8E9E121}"
+	ProjectSection(SolutionItems) = preProject
+		C:\Users\engin efe\Downloads\DesignPatternsInUseEbook.pdf = C:\Users\engin efe\Downloads\DesignPatternsInUseEbook.pdf
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
