@@ -1,0 +1,13 @@
+﻿@model List<Food.Tracking.Test.Portal.Entities.Yetki>
+
+@using Food.Tracking.Test.Portal.Entities
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+   @foreach (var item in Model)
+   {
+       <div>@item.YetkiAdi</div>
+   }
+</div>

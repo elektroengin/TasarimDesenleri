@@ -69,6 +69,10 @@ namespace IoC
             //container.Register(Castle.MicroKernel.Registration.Component.For<IEmailService>().ImplementedBy<EmailService>());
             //var root = container.Resolve<IEmailService>();
             //root.SendMail("deneme", "Notification", "test");
+
+            //Microsoft.Extensions.DependencyInjection
+            //IServiceProvider BuildServices() => new ServiceCollection()
+            //    .AddScoped<IEmailService, EmailService>()
         }
     }
 }
