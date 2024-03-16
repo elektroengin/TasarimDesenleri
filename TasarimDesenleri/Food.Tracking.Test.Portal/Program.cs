@@ -1,4 +1,5 @@
 ﻿using Food.Tracking.DataAccess.Concrete.Context;
+using Food.Tracking.Model;
 using Food.Tracking.Test.Portal.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -26,15 +27,20 @@ namespace Food.Tracking.Test.Portal
             var config = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json")
                 .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json")
+                
             .Build();
 
             var connectionString = config.GetSection("ConnectionStrings").Value;
-            ///var connectionString_arastirma = config.GetConnectionString("ConnectionStrings");
+            
             builder.Services.AddDbContext<FoodV2DbContext>(x =>
                 x.UseSqlServer(connectionString));
 
+
             //DbContextV4
             //Model kullaılarak yapılacak
+            var appSettings = config.GetSection("ConnectionStrings").Get<AppSettings>();
+            builder.Services.AddDbContext<FoodV2DbContext>(x =>
+                x.UseSqlServer(appSettings.DbConnectionString));
 
 
             var app = builder.Build();
