@@ -1,4 +1,5 @@
 ﻿using Food.Tracking.DataAccess.Concrete.Context;
+using Food.Tracking.DataAccess.Repository;
 using Food.Tracking.Model;
 using Food.Tracking.Test.Portal.DataAccess;
 using Microsoft.EntityFrameworkCore;
@@ -17,6 +18,7 @@ namespace Food.Tracking.Test.Portal
 
             //DbContext V1
             builder.Services.AddScoped<FoodDbContext>();
+            builder.Services.AddScoped<IMusteriTuruGrubuRepository, MusteriTuruGrubuRepository>();
 
             //DbContext V2
             //builder.Services.AddDbContext<FoodV2DbContext>(x =>

@@ -13,10 +13,12 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="7.0.12" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Food.Tracking.DataAccess\Food.Tracking.DataAccess.csproj" />
+    <ProjectReference Include="..\Food.Tracking.Entities\Food.Tracking.Entities.csproj" />
     <ProjectReference Include="..\Food.Tracking.Model\Food.Tracking.Model.csproj" />
   </ItemGroup>
 
