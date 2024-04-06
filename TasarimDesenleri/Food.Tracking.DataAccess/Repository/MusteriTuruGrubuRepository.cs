@@ -1,12 +1,6 @@
-﻿using Food.Tracking.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Food.Tracking.DataAccess.Concrete.Context;
+﻿using Food.Tracking.Context.ContextSettings;
+using Food.Tracking.Entities;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Food.Tracking.DataAccess.Repository
 {

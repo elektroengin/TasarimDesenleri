@@ -15,5 +15,10 @@ namespace Food.Tracking.Entities
         public string GrupAdi { get; set; }
         public int? OdemeTalimatiVerebilir { get; set; }
         public int? TopluMisafirRezervasyonuYapabilir { get; set; }
+        public DateTime CreatedOn { get; set; }
+        public long CreatedBy { get; set; }
+        public DateTime? ModifiedOn { get; set; }
+        public long? ModifiedBy { get; set; }
+
     }
 }

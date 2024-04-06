@@ -1,7 +1,7 @@
 ﻿using Food.Tracking.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace Food.Tracking.DataAccess.Concrete.Context
+namespace Food.Tracking.Context.ContextSettings
 {
     public class FoodV2DbContext : DbContext
     {

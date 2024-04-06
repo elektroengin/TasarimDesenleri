@@ -1,8 +1,8 @@
-﻿using Food.Tracking.Test.Portal.Models;
+﻿using Food.Tracking.Context.ContextSettings;
+using Food.Tracking.Test.Portal.DataAccess;
+using Food.Tracking.Test.Portal.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using Food.Tracking.DataAccess.Concrete.Context;
-using Food.Tracking.Test.Portal.DataAccess;
 
 namespace Food.Tracking.Test.Portal.Controllers
 {

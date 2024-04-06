@@ -95,7 +95,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Food.Tracking.DataAccess", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Food.Tracking.Entities", "Food.Tracking.Entities\Food.Tracking.Entities.csproj", "{59116DA5-6B15-4F22-A864-0AA2C0F25E1A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Food.Tracking.Model", "Food.Tracking.Model\Food.Tracking.Model.csproj", "{37D63093-5CA7-470E-8457-F8D9E3784068}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Food.Tracking.Model", "Food.Tracking.Model\Food.Tracking.Model.csproj", "{37D63093-5CA7-470E-8457-F8D9E3784068}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Food.Tracking.Context", "Food.Tracking.Context\Food.Tracking.Context.csproj", "{BC5CCF08-345F-4C51-8246-7749CCAACCB0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Food.Tracking.BusinessLogic", "Food.Tracking.BusinessLogic\Food.Tracking.BusinessLogic.csproj", "{59C9AEE4-31DA-449A-BB8E-7D10F4992131}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -215,6 +219,14 @@ Global
 		{37D63093-5CA7-470E-8457-F8D9E3784068}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{37D63093-5CA7-470E-8457-F8D9E3784068}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{37D63093-5CA7-470E-8457-F8D9E3784068}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC5CCF08-345F-4C51-8246-7749CCAACCB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC5CCF08-345F-4C51-8246-7749CCAACCB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC5CCF08-345F-4C51-8246-7749CCAACCB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC5CCF08-345F-4C51-8246-7749CCAACCB0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59C9AEE4-31DA-449A-BB8E-7D10F4992131}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59C9AEE4-31DA-449A-BB8E-7D10F4992131}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59C9AEE4-31DA-449A-BB8E-7D10F4992131}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59C9AEE4-31DA-449A-BB8E-7D10F4992131}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -246,6 +258,8 @@ Global
 		{4D87C872-545A-4563-8B44-AAA5AF8B1402} = {E1AA757D-9275-4877-BC90-99811B26F58D}
 		{59116DA5-6B15-4F22-A864-0AA2C0F25E1A} = {E1AA757D-9275-4877-BC90-99811B26F58D}
 		{37D63093-5CA7-470E-8457-F8D9E3784068} = {E1AA757D-9275-4877-BC90-99811B26F58D}
+		{BC5CCF08-345F-4C51-8246-7749CCAACCB0} = {E1AA757D-9275-4877-BC90-99811B26F58D}
+		{59C9AEE4-31DA-449A-BB8E-7D10F4992131} = {E1AA757D-9275-4877-BC90-99811B26F58D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C925C8A7-E66E-4426-B880-96796D6FA6ED}

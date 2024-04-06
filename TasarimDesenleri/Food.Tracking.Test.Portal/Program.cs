@@ -1,9 +1,11 @@
-﻿using Food.Tracking.DataAccess.Concrete.Context;
+﻿using Food.Tracking.BusinessLogic.MusteriTuruGrubu;
+using Food.Tracking.Context.ContextSettings;
 using Food.Tracking.DataAccess.Repository;
+using Food.Tracking.Entities;
 using Food.Tracking.Model;
+using Food.Tracking.Test.Portal.Container;
 using Food.Tracking.Test.Portal.DataAccess;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 
 namespace Food.Tracking.Test.Portal
 {
@@ -19,6 +21,9 @@ namespace Food.Tracking.Test.Portal
             //DbContext V1
             builder.Services.AddScoped<FoodDbContext>();
             builder.Services.AddScoped<IMusteriTuruGrubuRepository, MusteriTuruGrubuRepository>();
+            builder.Services.AddScoped<IMusteriTuruGrubuBL, MusteriTuruGrubuBL>();
+
+            //builder.Services.BusinessLogicInstall();
 
             //DbContext V2
             //builder.Services.AddDbContext<FoodV2DbContext>(x =>
@@ -64,7 +69,9 @@ namespace Food.Tracking.Test.Portal
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                //pattern: "{controller=Home}/{action=Index}/{id?}");
+                pattern: "{controller=MusteriTuruGrubu}/{action=Index}/{id?}");
+                
 
             app.Run();
         }
