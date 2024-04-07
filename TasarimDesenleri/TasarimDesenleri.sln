@@ -97,9 +97,16 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Food.Tracking.Entities", "F
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Food.Tracking.Model", "Food.Tracking.Model\Food.Tracking.Model.csproj", "{37D63093-5CA7-470E-8457-F8D9E3784068}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Food.Tracking.Context", "Food.Tracking.Context\Food.Tracking.Context.csproj", "{BC5CCF08-345F-4C51-8246-7749CCAACCB0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Food.Tracking.Context", "Food.Tracking.Context\Food.Tracking.Context.csproj", "{BC5CCF08-345F-4C51-8246-7749CCAACCB0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Food.Tracking.BusinessLogic", "Food.Tracking.BusinessLogic\Food.Tracking.BusinessLogic.csproj", "{59C9AEE4-31DA-449A-BB8E-7D10F4992131}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Food.Tracking.BusinessLogic", "Food.Tracking.BusinessLogic\Food.Tracking.BusinessLogic.csproj", "{59C9AEE4-31DA-449A-BB8E-7D10F4992131}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GenericTypes", "GenericTypes", "{01E1367F-F3DD-4D04-9DEA-1F756DAAB2F7}"
+	ProjectSection(SolutionItems) = preProject
+		GenericTypesNotes.txt = GenericTypesNotes.txt
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenericTypesSample", "GenericTypesSample\GenericTypesSample.csproj", "{17240EF9-E350-4607-B976-0F3634A1638A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -227,6 +234,10 @@ Global
 		{59C9AEE4-31DA-449A-BB8E-7D10F4992131}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{59C9AEE4-31DA-449A-BB8E-7D10F4992131}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{59C9AEE4-31DA-449A-BB8E-7D10F4992131}.Release|Any CPU.Build.0 = Release|Any CPU
+		{17240EF9-E350-4607-B976-0F3634A1638A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17240EF9-E350-4607-B976-0F3634A1638A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17240EF9-E350-4607-B976-0F3634A1638A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17240EF9-E350-4607-B976-0F3634A1638A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -260,6 +271,7 @@ Global
 		{37D63093-5CA7-470E-8457-F8D9E3784068} = {E1AA757D-9275-4877-BC90-99811B26F58D}
 		{BC5CCF08-345F-4C51-8246-7749CCAACCB0} = {E1AA757D-9275-4877-BC90-99811B26F58D}
 		{59C9AEE4-31DA-449A-BB8E-7D10F4992131} = {E1AA757D-9275-4877-BC90-99811B26F58D}
+		{17240EF9-E350-4607-B976-0F3634A1638A} = {01E1367F-F3DD-4D04-9DEA-1F756DAAB2F7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C925C8A7-E66E-4426-B880-96796D6FA6ED}

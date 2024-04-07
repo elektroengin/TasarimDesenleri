@@ -1,0 +1,118 @@
+﻿5 tip Generic Types Mevcuttur:
+
+1. Generic Method
+2. Generic Class
+3. Generic Interface
+4. Generic Constraints
+5. Generic Convariance and Contravariance
+
+Generic Tipler, Bir veri yapısının ve yada sınıfıları tanımlarken veri türüne bağlı olmayacak şekilde tasarlanır.
+Kodun daha esnek olmasını sağlar
+Kod yazarken tekrarlanmasını engeller.
+Yeniden kullanılabilirlik sağlar.
+
+1. Generic Method:  
+Birden çok farklı veri türünde çalışılabilen bir methodtur.
+Generic Methodlar, bir yada birden fazla tür parametresi oalrak kullanılabilir.
+
+public 
+
+public T GetList<T>(List<T> list)
+{
+	return list.ToList();
+}
+
+public T GetFirstOrDefault<T>(List<T> list)
+{
+	return list.FirstOrDefault();
+}
+
+public T GenericMethod<T>(T arg)
+{
+	return arg;
+}
+
+2. Generic Class:
+Generic bir sınıf, farklı veri türleriyle çalışabilen sınıftır. Generic sınıflar, belirli veri türünü
+bağlı olmadan çalışabilirler.
+
+public class GenericClass<T>
+{
+	private T data;
+
+	public GetData(T data)
+	{
+	   this.data = data;
+	}
+}
+
+public class Box<T>
+{
+	public T Content { get; set;}	
+}
+
+Box<string> stringBox = new Box<string> 
+{
+	Content = "Hello world";
+}
+
+3. Generic Interface:
+
+public interface IRepository<T>
+{
+	void Add(T item);
+	void Remove(T item);
+	T GetById(int id);
+}
+
+public class UserRepository : IRepository<User>
+{
+	//Implement Interface methods
+}
+
+4. Generic Constraints (Generic Türü Kısıtı):
+Generic Türün hangi türleri kulanılacağini belerlemek için kullanılan bir özelliktir. 
+Generic Kısıt where anahtar kelimesiyle belirtilir.
+
+// En çok kullanılan
+public class IRespository<T> where T : class
+{
+	// T yalnızca bir referans türü 
+}
+
+public class IRespository<T> where T : IComparable
+{
+	// T , IComparable arayüzünde kullanılır
+}
+
+//Birden fazla kısıt kullanılacaksa , ile eklenir
+public class IRespository<T> where T : IComparable , IDisposable 
+{
+	// T , IComparable ve Disposable arayüzünde kullanılır
+}
+
+public T GetDefault<T> where T : new()
+{
+	return new T();
+}
+
+5. Generic Convariance(Kovaryans) and Contravariance(Kontravaryans):
+
+ Generic Convariance: Bir generic türün alt türlerinin kullanılmasını sağlar. Out anahtar kelimesi kullanılır.
+ IEnumerable<T> 
+
+public interface IReadable<out T>
+{
+	T GetItem();
+}
+
+Contravariance:  Bir generic türün üst türlerinin kullanılmasını sağlar. in anahtar kelimesi kullanılır.
+
+public interface IReadable<in T>
+{
+	T SetItem(T item);
+}
+
+
+
+
