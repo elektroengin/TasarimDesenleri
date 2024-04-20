@@ -4,11 +4,10 @@ using Food.Tracking.Entities;
 
 namespace Food.Tracking.DataAccess.Repository
 {
-    public class MusteriTuruGrubuRepository : BaseRepository<MusteriTuruGrubu>, IMusteriTuruGrubuRepository
+    public class MusteriTuruRepository : BaseRepository<MusteriTuru>,IMusteriTuruRepository
     {
-        public MusteriTuruGrubuRepository(FoodV2DbContext dbContext) : base(dbContext)
+        public MusteriTuruRepository(FoodV2DbContext dbContext) : base(dbContext)
         {
         }
-
     }
 }

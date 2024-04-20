@@ -1,11 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using Food.Tracking.Model.BaseModel;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Food.Tracking.Entities
 {
     [Table("MusteriTuru")]
-    public partial class MusteriTuru
+    public partial class MusteriTuru : EntityBase<long>
     {
-        public long Id { get; set; } // ORTAK
         public string TurAdi { get; set; }
         public string TurUzunAdi { get; set; }
         public int MisafirSayisi { get; set; }
@@ -14,9 +14,5 @@ namespace Food.Tracking.Entities
         public int Burslu { get; set; }
         public int KotadanRezervasyon { get; set; }
         public int KotadanRezervasyonYapabilir { get; set; }
-        public DateTime CreatedOn { get; set; } //ORTAK
-        public long CreatedBy { get; set; } //ORTAK
-        public DateTime? ModifiedOn { get; set; } //ORTAK
-        public long? ModifiedBy { get; set; } //ORTAK
     }
 }

@@ -1,9 +1,7 @@
 ﻿using Food.Tracking.BusinessLogic.MusteriTuruGrubu;
 using Food.Tracking.Context.ContextSettings;
 using Food.Tracking.DataAccess.Repository;
-using Food.Tracking.Entities;
 using Food.Tracking.Model;
-using Food.Tracking.Test.Portal.Container;
 using Food.Tracking.Test.Portal.DataAccess;
 using Microsoft.EntityFrameworkCore;
 
