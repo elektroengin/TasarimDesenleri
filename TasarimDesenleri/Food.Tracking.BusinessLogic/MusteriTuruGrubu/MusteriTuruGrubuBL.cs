@@ -15,5 +15,11 @@ namespace Food.Tracking.BusinessLogic.MusteriTuruGrubu
         {
             return _musteriTuruGrubuRepository.GetAll();
         }
+
+        public Entities.MusteriTuruGrubu GetByMusteriTuruGrubu(Entities.MusteriTuruGrubu enity)
+        {
+            return _musteriTuruGrubuRepository.Where(x => x.Id == enity.Id).SingleOrDefault();
+        }
+
     }
 }

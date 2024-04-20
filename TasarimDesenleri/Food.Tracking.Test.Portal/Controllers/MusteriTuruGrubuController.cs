@@ -1,5 +1,6 @@
 ﻿using Food.Tracking.BusinessLogic.MusteriTuruGrubu;
 using Food.Tracking.DataAccess.Repository;
+using Food.Tracking.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Food.Tracking.Test.Portal.Controllers
@@ -42,7 +43,11 @@ namespace Food.Tracking.Test.Portal.Controllers
 
         public IActionResult Index()
         {
+            var musteriTuruGrubu = new MusteriTuruGrubu();
+            musteriTuruGrubu.Id = 2;
+
             var musteriList = _musteriTuruGrubuBl.GetMusteriTuruGrubuList();
+            //var musteriList = _musteriTuruGrubuBl.GetByMusteriTuruGrubu(musteriTuruGrubu);
             return View(musteriList);
         }
 
